@@ -2,7 +2,7 @@ export interface Product {
   id: number;
   name: string;
   description: string;
-  price: number;
+  price: number; // TODO: rename to cost
 }
 
 const products: Product[] = [

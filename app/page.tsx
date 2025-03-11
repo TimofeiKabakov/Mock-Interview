@@ -6,7 +6,9 @@ export default function HomePage() {
 
   return (
     <>
-      <h1 className="text-3xl font-bold mb-4">Welcome to My E-commerce!</h1>
+      <h1 className="text-3xl font-bold mb-4">
+        Welcome to My Goofy E-commerce!
+      </h1>
       <ProductList products={products} />
     </>
   );

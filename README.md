@@ -1,6 +1,6 @@
-# E-Commerce Starter (Next.js + TypeScript + Tailwind)
+# Goofy E-Commerce (Next.js + TypeScript + Tailwind)
 
-A minimal **Next.js 13** (App Router) + **React** + **TypeScript** + **Tailwind** setup for a small e-commerce demo.
+A minimal **Next.js 13** (App Router) + **React** + **TypeScript** + **Tailwind** setup for a small goofy e-commerce demo.
 
 Features:
 

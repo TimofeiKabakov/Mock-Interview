@@ -2,7 +2,7 @@
 
 import React from "react";
 import type { Product } from "@/data/products";
-import { useCart } from "@/contexts/CartContext";
+import { useCart } from "@/contexts/CartContext"; // TODO: change to @/data/CartContext
 
 interface ProductCardProps {
   product: Product;
