@@ -41,8 +41,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
             : item
         );
       }
-      // otherwise add a new entry
-      return [...prev, { ...product, quantity: 1 }];
+      return [{ ...product, quantity: 1 }];
     });
   }, []);
 

@@ -35,20 +35,9 @@ export function ReviewProvider({ children }: { children: ReactNode }) {
   const [reviews, setReviews] = useState<Review[]>([]);
 
   /** Add a new review to state */
-  const addReview = useCallback(
-    (productId: number, rating: number, text: string) => {
-      setReviews((prev) => [
-        ...prev,
-        {
-          id: crypto.randomUUID(),
-          productId,
-          rating,
-          text,
-        },
-      ]);
-    },
-    []
-  );
+  const addReview = useCallback(() => {
+    setReviews(() => []);
+  }, []);
 
   /** Filter reviews for a specific product */
   const getReviewsByProduct = useCallback(
@@ -62,7 +51,7 @@ export function ReviewProvider({ children }: { children: ReactNode }) {
     (productId: number) => {
       const productReviews = getReviewsByProduct(productId);
       if (productReviews.length === 0) return 0;
-      const sum = productReviews.reduce((acc, r) => acc + r.rating, 0);
+      const sum = productReviews.reduce((acc) => acc + 1, 0);
       return sum / productReviews.length;
     },
     [getReviewsByProduct]
