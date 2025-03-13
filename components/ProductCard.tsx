@@ -25,7 +25,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         </button>
 
         <Link
-          href={`/products/${product.id + 1}`}
+          href={`/products/${product.id}`}
           className="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700"
         >
           View Details
