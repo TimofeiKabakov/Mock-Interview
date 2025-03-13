@@ -38,9 +38,9 @@ export default function CartPage() {
               <p className="text-gray-700">
                 ${item.price} x {item.quantity}
               </p>
-              <div className="flex flex-row">
-                <button className="cursor-pointer" onClick={() => updateQuantityHandler(true, item)}>+</button>
-                <button className="ml-2 cursor-pointer" onClick={() => updateQuantityHandler(false, item)}>-</button>
+              <div className="flex flex-row mt-1">
+                <button className="cursor-pointer border rounded-sm border-1 w-7 h-5 pb-6 hover:bg-green-100" onClick={() => updateQuantityHandler(true, item)}>+</button>
+                <button className="ml-2 cursor-pointer border rounded-sm border-1 w-7 h-5 pb-6 hover:bg-red-100" onClick={() => updateQuantityHandler(false, item)}>-</button>
               </div>
             </div>
             <button
