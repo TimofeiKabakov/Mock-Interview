@@ -35,8 +35,14 @@ export function ReviewProvider({ children }: { children: ReactNode }) {
   const [reviews, setReviews] = useState<Review[]>([]);
 
   /** Add a new review to state */
-  const addReview = useCallback(() => {
-    setReviews(() => []);
+  const addReview = useCallback((productId: number, rating: number, text: string) => {
+    const newReview: Review = {
+      id: crypto.randomUUID(),
+      productId: productId,
+      rating: rating,
+      text: text,
+    }
+    setReviews((prevReviews) => [...prevReviews, newReview]); 
   }, []);
 
   /** Filter reviews for a specific product */
