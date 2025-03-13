@@ -1,13 +1,15 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { CartItem, useCart } from "@/contexts/CartContext";
+import { getCoupons } from "@/data/coupons";
 
 export default function CartPage() {
   const { cartItems, removeFromCart, addToCart } = useCart();
+  const coupons = getCoupons();
 
   // Basic sum of item.price * item.quantity
-  const totalPrice = cartItems.reduce(
+  const totalPrice: number = cartItems.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
   );
@@ -21,6 +23,20 @@ export default function CartPage() {
       addToCart(item)
     }else{
       removeFromCart(item.id)
+    }
+  }
+
+  const [discountCode, setDiscountCode] = useState("");
+  const [discountPercentage, setDiscountPercentage] = useState<number>(0);
+  
+  const applyDiscount = () => {
+    const coupon = coupons.find(coupon => coupon.name == discountCode);
+    if(coupon){
+      alert("Discount Successful!");
+      setDiscountPercentage(coupon.discountPecentage / 100)
+    }else{
+      alert("Invalid Coupon!");
+      setDiscountPercentage(0);
     }
   }
 
@@ -52,8 +68,19 @@ export default function CartPage() {
           </li>
         ))}
       </ul>
-      <div className="mt-4 font-bold text-xl">
-        Total: ${totalPrice.toFixed(2)}
+      <div className="flex flex-col mt-4 font-bold text-xl">
+        <div className="flex flex-row mb-5">
+          <h2 className="text-lg font-light">Enter Discount:</h2>
+          <input className="w-30 ml-1 mr-2 border rounded-sm font-light text-sm text-green-800" onChange={e => setDiscountCode(e.target.value)}/>
+          <button className="font-light border p-1 rounded-sm text-sm cursor-pointer bg-blue-300" onClick={() => applyDiscount()}>Apply</button>
+        </div>
+        {discountPercentage > 0 && 
+          <div className="flex flex-col">
+            <h1 className="font-light text-sm">Original Total: ${totalPrice.toFixed(2)}</h1>
+            <h1 className="font-light text-sm mt-2">Discount Applied: {(discountPercentage * 100).toFixed(0)}%</h1>
+          </div>
+        }
+        <h1 className="mt-2">Total: ${(totalPrice * (1 - discountPercentage)).toFixed(2)}</h1>
       </div>
     </div>
   );
