@@ -11,7 +11,7 @@ import React, {
 import type { Product } from "@/data/products";
 
 // Each cart item extends Product to track quantity
-interface CartItem extends Product {
+export interface CartItem extends Product {
   quantity: number;
 }
 
@@ -41,13 +41,24 @@ export function CartProvider({ children }: { children: ReactNode }) {
             : item
         );
       }
-      return [{ ...product, quantity: 1 }];
+      // added new item
+      return [...prev, { ...product, quantity: 1 }];
     });
   }, []);
 
   const removeFromCart = useCallback((productId: number) => {
-    setCartItems((prev) => prev.filter((item) => item.id !== productId));
-  }, []);
+    const updatedItems: (CartItem)[] = cartItems.map(item => {
+      if(item.id === productId){
+        return {
+          ...item,
+          quantity: item.quantity - 1,
+        }
+      }
+      return item;
+    });
+
+    setCartItems(updatedItems.filter((item) => item.quantity > 0));
+  }, [cartItems]);
 
   const value: CartContextValue = {
     cartItems,

@@ -1,10 +1,10 @@
 "use client";
 
 import React from "react";
-import { useCart } from "@/contexts/CartContext";
+import { CartItem, useCart } from "@/contexts/CartContext";
 
 export default function CartPage() {
-  const { cartItems, removeFromCart } = useCart();
+  const { cartItems, removeFromCart, addToCart } = useCart();
 
   // Basic sum of item.price * item.quantity
   const totalPrice = cartItems.reduce(
@@ -14,6 +14,14 @@ export default function CartPage() {
 
   if (cartItems.length === 0) {
     return <div>Your cart is empty!</div>;
+  }
+
+  const updateQuantityHandler = (increase: boolean, item: CartItem) => {
+    if(increase){
+      addToCart(item)
+    }else{
+      removeFromCart(item.id)
+    }
   }
 
   return (
@@ -30,6 +38,10 @@ export default function CartPage() {
               <p className="text-gray-700">
                 ${item.price} x {item.quantity}
               </p>
+              <div className="flex flex-row">
+                <button className="cursor-pointer" onClick={() => updateQuantityHandler(true, item)}>+</button>
+                <button className="ml-2 cursor-pointer" onClick={() => updateQuantityHandler(false, item)}>-</button>
+              </div>
             </div>
             <button
               onClick={() => removeFromCart(item.id)}
